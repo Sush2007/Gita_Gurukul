@@ -4,13 +4,12 @@ export default function Shop() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <div className="max-w-[1280px] w-full mx-auto pt-[120px] pb-8 px-6 lg:px-[60px]">
-        <div className="flex flex-col gap-4 mb-12 border-b border-gray-200 pb-8">
+        <div className="flex flex-col gap-4 mb-12 lg:mb-16 text-center lg:text-left items-center lg:items-start">
           <h1 className="font-display font-black text-5xl lg:text-[64px] leading-[1.1] tracking-tight text-brand-dark">
           Curated Editions
         </h1>
-        <p className="font-body text-base lg:text-lg text-gray-700 max-w-2xl">
-          Discover our collection of beautifully bound Bhagavad Gita diaries,<br />
-          designed for reflection and daily wisdom.
+        <p className="font-body text-base lg:text-lg text-gray-700">
+          Discover our collection of beautifully bound Bhagavad Gita diaries, designed for reflection and daily wisdom.
         </p>
       </div>
       
@@ -27,7 +26,7 @@ export default function Shop() {
             />
           </div>
           
-          <div className="w-full lg:flex-1 flex flex-col gap-6">
+          <div className="w-full lg:flex-1 flex flex-col gap-6 text-center lg:text-left items-center lg:items-start">
             <div>
               <h2 className="font-display font-black text-4xl lg:text-[56px] leading-[1.1] tracking-tight text-brand-dark mb-4">Gita Gurukul Diary</h2>
               <p className="font-body text-base text-gray-600">
@@ -45,7 +44,7 @@ export default function Shop() {
             </div>
             
             <button 
-              className="bg-brand-primary text-white font-button font-medium text-lg py-3 px-8 mt-4 rounded-md shadow-md hover:bg-opacity-90 hover:shadow-lg transition-all disabled:opacity-50"
+              className="bg-brand-primary text-white font-button font-medium text-lg py-3 px-8 mt-4 rounded-md shadow-md hover:bg-opacity-90 hover:shadow-lg transition-all disabled:opacity-50 self-center lg:self-start"
               disabled
             >
               Proceed to checkout

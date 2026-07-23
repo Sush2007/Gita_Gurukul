@@ -1,161 +1,223 @@
 import Image from "next/image";
+import AnimatedSection from "@/components/AnimatedSection";
 
 export default function Donate() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <div className="max-w-[1280px] w-full mx-auto relative overflow-hidden">
-      {/* Hero */}
-      <section className="w-full px-6 lg:px-[60px] pt-[120px] pb-10 lg:pb-12 text-center flex flex-col gap-4">
-        <h1 className="font-display font-black text-5xl lg:text-[64px] leading-[1.1] tracking-tight text-brand-dark">Support the Journey of Eternal Wisdom</h1>
-        <p className="font-body text-lg lg:text-xl text-gray-700 max-w-[800px] mx-auto">
-          Your generous contribution helps us continue spreading the timeless teachings of the Bhagavad Gita and supporting seekers on their path.
-        </p>
-      </section>
+      
+      {/* Hero Section (Background Image with Overlay Text) */}
+      <div className="relative w-full h-[calc(100vh-85px)] mt-[85px] flex items-center justify-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <Image 
+            src="/images/1_1.png" 
+            alt="Support Eternal Wisdom" 
+            fill
+            className="object-cover object-top"
+          />
+          {/* Dark Overlay for text readability */}
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
 
-      {/* Hero Image */}
-      <div className="w-full h-[300px] lg:h-[450px] relative rounded-sm overflow-hidden drop-shadow-md max-w-5xl mx-auto">
-        <Image 
-          src="/images/evan_krause_hqgvoc_nyda_unsplash_1.png" 
-          alt="Support" 
-          fill
-          className="object-cover"
-        />
+        {/* Hero Content */}
+        <div className="relative z-10 text-center px-6 max-w-5xl flex flex-col gap-6">
+          <h1 className="font-display font-black text-4xl lg:text-[56px] leading-[1.1] tracking-tight text-white drop-shadow-md">
+            Support the Journey of Eternal Wisdom
+          </h1>
+          <p className="font-body text-base lg:text-lg text-white max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+            Your generous contribution helps us continue spreading the profound teachings of the Bhagavad Gita, creating tools for mindful reflection and spiritual growth.
+          </p>
+        </div>
       </div>
 
-      {/* Who We Serve */}
-      <section className="w-full bg-white py-12 lg:py-16">
-        <div className="max-w-6xl mx-auto px-6 lg:px-[60px] flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-          <div className="w-full lg:w-1/2 flex flex-col gap-5">
-            <h2 className="font-display font-black text-4xl lg:text-[56px] leading-[1.1] tracking-tight text-brand-dark">Who We Serve</h2>
-            <p className="font-body text-base lg:text-lg text-gray-800 leading-relaxed">
-              Beyond our annual celebration, our team works year-round with spiritual seekers in the Himalayas, particularly in Rishikesh. Many arrive with little more than their devotion. We help provide:
-            </p>
-            <div className="font-body text-base lg:text-lg text-gray-800 leading-relaxed space-y-2">
-              Food, so daily needs don't interrupt spiritual practice<br />
-              Clothing, especially through harsh Himalayan seasons<br />
-              Shelter and sleeping comfort, so rest is not a struggle
-            </div>
-            <p className="font-body text-base lg:text-lg text-gray-800 leading-relaxed font-semibold italic text-brand-primary">
-              Our goal is simple: to let these seekers focus on their spiritual path, unburdened by basic hardship.
-            </p>
-          </div>
-          <div className="w-full lg:w-1/2 h-[300px] relative rounded-sm overflow-hidden shadow-md">
-            <Image 
-              src="/images/tong_kbp_xpommw690he_unsplash_1.png" 
-              alt="Seekers in Rishikesh" 
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Donation Form Section */}
-      <section className="w-full bg-gray-50 py-12 lg:py-16 border-t border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 lg:px-[60px] flex flex-col lg:flex-row gap-12 lg:gap-16">
+      {/* Who We Serve Section (Zig-zag Layout) */}
+      <div className="w-full bg-white py-16 lg:py-24">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px] flex flex-col gap-12 lg:gap-20">
           
-          {/* Why Donate Info */}
-          <div className="w-full lg:w-1/2 flex flex-col gap-6">
-            <div>
-              <h3 className="font-display font-black text-3xl lg:text-4xl mb-4 text-brand-dark">Why Donate?</h3>
-              <p className="font-body text-base text-gray-700 leading-relaxed">
-                Your support is vital. By donating to Gita Gurukul, you<br />
-                are directly investing in the curation, design, and<br />
-                distribution of resources that bring ancient Vedic<br />
-                wisdom into modern daily lives.
+          {/* Row 1: Text Left, Image Right */}
+          <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+            <div className="w-full lg:flex-1 flex flex-col gap-4 text-center lg:text-left">
+              <h2 className="font-display font-black text-4xl lg:text-[48px] leading-[1.1] tracking-tight text-brand-dark mb-2">
+                Who We Serve
+              </h2>
+              <p className="font-body text-base lg:text-[17px] text-gray-700 leading-relaxed">
+                Beyond our annual celebration, our team works year-round with spiritual seekers in the Himalayas, particularly in Rishikesh. Many arrive with little more than their devotion. We help provide:
               </p>
             </div>
-            
-            <div className="flex flex-col gap-5">
-              <div>
-                <h4 className="font-display font-bold text-2xl text-brand-dark mb-2">Support that reaches those who need it most.</h4>
-                <p className="font-body text-base text-gray-700 leading-relaxed">
-                  Every donation to Gita Gurukul goes directly toward two things: spreading Krishna consciousness through community celebration, and supporting spiritual seekers who have little else.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-2xl text-brand-dark mb-2">Bhagavad Gita Jayanti</h4>
-                <p className="font-body text-base text-gray-700 leading-relaxed">
-                  Each December, we mark Bhagavad Gita Jayanti with a large yagnya and a community food distribution for devotees. This is one of our most meaningful times of year, made possible entirely through donor support. Your contribution helps us hold this celebration with the scale and sincerity it deserves.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-2xl text-brand-dark mb-2">Where Your Contribution Goes</h4>
-                <p className="font-body text-base text-gray-700 leading-relaxed">
-                  Every rupee donated is directed toward these two efforts, the Gita Jayanti celebration and ongoing support for seekers in Rishikesh. No portion is set aside for anything beyond these purposes.
-                </p>
+            <div className="w-full lg:w-1/2 h-[250px] lg:h-[300px] relative rounded-sm overflow-hidden shadow-md">
+              <Image 
+                src="/images/tong_kbp_xpommw690he_unsplash_1.png" 
+                alt="Monks gathering" 
+                fill
+                className="object-cover"
+              />
+            </div>
+          </AnimatedSection>
+
+          {/* Row 2: Image Left, Text Right */}
+          {/* Mobile: Image Top -> flex-col */}
+          <AnimatedSection className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+            <div className="w-full lg:w-1/2 h-[250px] lg:h-[300px] relative rounded-sm overflow-hidden shadow-md">
+              <Image 
+                src="/images/usha_kiran_lke8fsdqqtc_unsplash_1.png" 
+                alt="Monk in meditation" 
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="w-full lg:flex-1 flex flex-col gap-4 text-center lg:text-left">
+              <div className="font-body text-base lg:text-[17px] text-gray-700 leading-relaxed space-y-2">
+                <p>Food, so daily needs don't interrupt spiritual practice</p>
+                <p>Clothing, especially through harsh Himalayan seasons</p>
+                <p>Shelter and sleeping comfort, so rest is not a struggle</p>
               </div>
             </div>
+          </AnimatedSection>
+
+        </div>
+      </div>
+
+      {/* Goal Banner */}
+      <AnimatedSection className="w-full bg-[#EAE8E3] py-8 lg:py-10 border-y border-brand-border/20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="font-display text-lg lg:text-xl font-bold tracking-wider text-[#D98A36] uppercase">
+            Our goal is simple: to let these seekers focus on their spiritual path, unburdened by basic hardship.
+          </p>
+        </div>
+      </AnimatedSection>
+
+      {/* How to give? Section */}
+      <div className="w-full bg-white py-16 lg:py-24">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px] flex flex-col gap-12 lg:gap-16">
+          
+          <div className="text-center">
+            <h2 className="font-display font-black text-4xl lg:text-[48px] leading-[1.1] tracking-tight text-brand-dark">
+              How to give?
+            </h2>
           </div>
 
-          {/* Form */}
-          <div className="w-full lg:w-1/2 bg-white p-8 lg:p-10 shadow-lg border border-gray-100 rounded-sm">
-            <h3 className="font-display font-black text-3xl lg:text-4xl text-brand-dark mb-6">Make a Contribution</h3>
+          <AnimatedSection className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             
-            <form className="flex flex-col gap-6">
-              {/* Amount Selection */}
-              <div className="flex flex-col gap-3">
-                <label className="font-body font-semibold text-base text-brand-dark">Select Amount</label>
-                <div className="flex flex-wrap gap-3">
-                  {['₹101', '₹501', '₹1001', '₹1501', '₹2001'].map((amount) => (
-                    <button 
-                      key={amount}
-                      type="button"
-                      className="px-5 py-2 border border-brand-primary text-brand-primary font-body font-medium rounded-sm hover:bg-brand-primary hover:text-white transition-colors"
-                    >
-                      {amount}
-                    </button>
-                  ))}
-                  <div className="flex items-center border border-gray-300 rounded-sm px-3 py-2 flex-grow min-w-[120px]">
-                    <span className="text-gray-500 mr-2">₹</span>
-                    <input 
-                      type="number" 
-                      placeholder="Other Amount" 
-                      className="outline-none font-body w-full text-base"
-                    />
+            {/* LEFT COLUMN: Donation Form */}
+            <div className="w-full lg:w-1/2 bg-[#F9F9F8] p-8 lg:p-10 shadow-sm border border-brand-border/10 rounded-sm">
+              <h3 className="font-display font-black text-2xl lg:text-3xl text-brand-dark mb-6">
+                Make a Contribution
+              </h3>
+              
+              <form className="flex flex-col gap-6">
+                {/* Amount Selection */}
+                <div className="flex flex-col gap-3">
+                  <label className="font-body text-xs font-semibold text-brand-dark uppercase tracking-wide">Select Amount</label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {['₹101', '₹501', '₹1001', '₹1501', '₹2001'].map((amount) => (
+                      <button 
+                        key={amount}
+                        type="button"
+                        className="py-3 bg-transparent border border-[#D98A36]/30 text-brand-dark font-display font-bold rounded-sm hover:bg-[#D98A36] hover:text-white hover:border-[#D98A36] transition-colors text-sm lg:text-base"
+                      >
+                        {amount}
+                      </button>
+                    ))}
+                    <div className="flex items-center border border-[#D98A36]/30 bg-white rounded-sm px-3 py-3 col-span-1">
+                      <span className="text-gray-500 mr-1 text-sm">₹</span>
+                      <input 
+                        type="number" 
+                        placeholder="Custom" 
+                        min="0"
+                        className="outline-none font-display font-bold w-full text-sm lg:text-base text-brand-dark bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Personal Info */}
+                <div className="flex flex-col gap-4 mt-2">
+                  <div className="flex flex-col gap-1">
+                    <label className="font-body text-xs font-semibold text-brand-dark">Full Name</label>
+                    <input type="text" placeholder="Enter your full name" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-body text-xs font-semibold text-brand-dark">Email address</label>
+                    <input type="email" placeholder="Enter your email address" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
+                  </div>
+                  <div className="flex items-center gap-3 mt-2">
+                    <input type="checkbox" id="dedicate" className="w-4 h-4 text-brand-primary border-gray-300 rounded focus:ring-brand-primary" />
+                    <label htmlFor="dedicate" className="font-body text-xs text-gray-500">Dedicate this donation in honor of someone</label>
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <button 
+                    type="button"
+                    className="w-full bg-[#D98A36] text-white font-display font-bold text-lg py-4 rounded-sm shadow-md hover:bg-opacity-90 transition-all"
+                  >
+                    Donate Now
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* RIGHT COLUMN: Why Donate Info */}
+            <div className="w-full lg:w-1/2 flex flex-col gap-8">
+              <div>
+                <h3 className="font-display font-black text-2xl lg:text-3xl mb-4 text-brand-dark">Why Donate?</h3>
+                <p className="font-body text-sm lg:text-base text-gray-700 leading-relaxed">
+                  Your support is vital. By donating to Gita Gurukul, you are directly investing in the curation, design, and distribution of resources that bring ancient Vedic wisdom into modern daily lives.
+                </p>
+              </div>
+              
+              <div className="flex flex-col gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0 text-[#D98A36]">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z"/></svg>
+                  </div>
+                  <div>
+                    <h4 className="font-display font-bold text-[15px] lg:text-base text-brand-dark mb-1">Support that reaches those who need it most.</h4>
+                    <p className="font-body text-xs lg:text-sm text-gray-600 leading-relaxed">
+                      Every donation to Gita Gurukul goes directly toward two things: spreading Krishna consciousness through community celebration, and supporting spiritual seekers who have little else.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0 text-[#D98A36]">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  </div>
+                  <div>
+                    <h4 className="font-display font-bold text-[15px] lg:text-base text-brand-dark mb-1">Bhagavad Gita Jayanti</h4>
+                    <p className="font-body text-xs lg:text-sm text-gray-600 leading-relaxed">
+                      Each December, we mark Bhagavad Gita Jayanti with a large yagnya and a community food distribution for devotees. This is one of our most meaningful times of year, made possible entirely through donor support. Your contribution helps us hold this celebration with the scale and sincerity it deserves.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0 text-[#D98A36]">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  </div>
+                  <div>
+                    <h4 className="font-display font-bold text-[15px] lg:text-base text-brand-dark mb-1">Where Your Contribution Goes</h4>
+                    <p className="font-body text-xs lg:text-sm text-gray-600 leading-relaxed">
+                      Every rupee donated is directed toward these two efforts, the Gita Jayanti celebration and ongoing support for seekers in Rishikesh. No portion is set aside for anything beyond these purposes.
+                    </p>
                   </div>
                 </div>
               </div>
-
-              {/* Personal Info */}
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-1">
-                  <label className="font-body text-sm font-semibold text-brand-dark">Full Name</label>
-                  <input type="text" placeholder="Enter your full name" className="border border-gray-300 rounded-sm p-2.5 font-body text-base focus:outline-brand-primary" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label className="font-body text-sm font-semibold text-brand-dark">Email Address</label>
-                  <input type="email" placeholder="Enter your email address" className="border border-gray-300 rounded-sm p-2.5 font-body text-base focus:outline-brand-primary" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label className="font-body text-sm font-semibold text-brand-dark">Dedicate this donation in honor of someone</label>
-                  <input type="text" placeholder="In honor of someone (optional)" className="border border-gray-300 rounded-sm p-2.5 font-body text-base focus:outline-brand-primary" />
-                </div>
-              </div>
-
-              <div className="mt-2">
-                <button 
-                  type="button"
-                  className="w-full bg-brand-primary text-white font-button font-medium text-xl py-3 rounded-md shadow-md hover:bg-opacity-90 transition-all disabled:opacity-50"
-                  disabled
-                >
-                  Donate Now
-                </button>
-                <p className="text-center text-xs text-gray-500 italic mt-2">
-                  *Donations are currently disabled.
-                </p>
-              </div>
-            </form>
-          </div>
-
+            </div>
+            
+          </AnimatedSection>
         </div>
-        <div className="max-w-3xl mx-auto px-6 mt-12 text-center">
-          <p className="font-body text-lg text-brand-primary font-medium italic">
-            "Whether large or small, your contribution becomes part of a larger act of devotion, helping others walk their own path toward the Gita's wisdom."
+      </div>
+
+      {/* Footer Banner */}
+      <AnimatedSection className="w-full bg-[#EAE8E3] py-8 lg:py-10 border-t border-brand-border/20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="font-display text-sm lg:text-base font-bold tracking-wider text-[#D98A36] uppercase">
+            Whether large or small, your contribution becomes part of a larger act of devotion, helping others walk their own path toward the Gita's wisdom.
           </p>
         </div>
-      </section>
-      </div>
+      </AnimatedSection>
+
     </div>
   );
 }

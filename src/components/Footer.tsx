@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-brand-footer py-4 lg:py-6 border-t border-brand-border mt-12">
+    <footer className="w-full bg-brand-footer py-4 lg:py-6 mt-12">
       <div className="max-w-[1280px] w-full mx-auto px-6 lg:px-[60px] flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         
         {/* Left Side: Logo & Description aligned perfectly with Navbar */}
@@ -30,7 +30,7 @@ export default function Footer() {
             <Link href="#" className="hover:text-brand-primary transition-colors">Contact</Link>
           </div>
           <p className="font-body text-xs text-brand-tan/50">
-            © 2024 Gita Gurukul. All rights reserved.
+            © 2026 Gita Gurukul. All rights reserved.
           </p>
         </div>
 

@@ -11,7 +11,7 @@ export default function Home() {
         <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-16 min-h-screen pt-[80px]">
           
           {/* Hero Left Content */}
-          <div className="w-full lg:flex-1 flex flex-col gap-5 lg:pr-8">
+          <div className="w-full lg:flex-1 flex flex-col gap-5 lg:pr-8 text-center lg:text-left items-center lg:items-start">
             <h1 className="font-display font-black text-5xl lg:text-[64px] leading-[1.1] tracking-tight text-brand-dark">
               A diary worth<br />the success
             </h1>
@@ -23,7 +23,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 mt-6 self-center">
               <Link 
                 href="/shop"
-                className="bg-brand-primary text-white font-button font-medium text-lg px-8 py-3 rounded-md shadow-md flex items-center justify-center gap-3 hover:bg-opacity-90 hover:shadow-lg transition-all" 
+                className="bg-brand-primary text-white font-button font-medium text-lg px-8 py-3 rounded-md shadow-md flex items-center justify-center gap-3 hover:bg-opacity-90 hover:shadow-lg transition-all self-center lg:self-start" 
               >
                 <span>Buy now</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -32,7 +32,7 @@ export default function Home() {
           </div>
           
           {/* Hero Right Image */}
-          <div className="w-full lg:w-[400px] flex-shrink-0 flex justify-center lg:justify-end">
+          <div className="w-full max-w-[320px] lg:max-w-none mx-auto lg:w-[400px] flex-shrink-0 flex justify-center lg:justify-end">
             <div className="relative w-full">
               <Image 
                 src="/images/screenshot_from_2026_07_12_18_39_10_1.png" 
@@ -60,9 +60,9 @@ export default function Home() {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16 py-12 lg:py-16">
+        <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-16 py-12 lg:py-16">
           
-          <div className="w-full lg:flex-1 flex flex-col items-start gap-5">
+          <div className="w-full lg:flex-1 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
             <h2 className="font-display font-black text-5xl lg:text-[64px] leading-[1.1] tracking-tight text-brand-dark">About Us</h2>
             <p className="font-body text-base lg:text-lg leading-relaxed text-gray-800">
               Gita Gurukul was created to help you build a life of calmness, focus, success, and devotion. Founder Papiya Ranabijayini Samal spent seven years studying the Gita in depth, and from its 754 shlokas, selected the 27 that offer the clearest path to mastering calmness and achieving greatness in life.
@@ -76,7 +76,7 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="w-full lg:w-[450px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
+          <div className="w-full max-w-[320px] lg:max-w-none mx-auto lg:w-[450px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
             <Image 
               src="/images/oleg_churakov_akr89i3xf94_unsplash_1.png" 
               alt="About Us" 
@@ -88,9 +88,9 @@ export default function Home() {
         </AnimatedSection>
 
         {/* DONATION SECTION */}
-        <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-16 py-12 lg:py-16">
+        <AnimatedSection className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16 py-12 lg:py-16">
           
-          <div className="w-full lg:w-[450px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
+          <div className="w-full max-w-[320px] lg:max-w-none mx-auto lg:w-[450px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
             <Image 
               src="/images/manojkumar_bathala_jqfrgnf7cqo_unsplash_1.png" 
               alt="Donation" 
@@ -100,7 +100,7 @@ export default function Home() {
             />
           </div>
           
-          <div className="w-full lg:flex-1 flex flex-col items-start gap-5 text-left">
+          <div className="w-full lg:flex-1 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
             <h2 className="font-display font-black text-5xl lg:text-[64px] leading-[1.1] tracking-tight text-brand-dark">
               Donation
             </h2>
