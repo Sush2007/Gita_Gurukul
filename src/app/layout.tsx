@@ -28,8 +28,52 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Gita Gurukul",
-  description: "A diary worth the success.",
+  title: {
+    default: "Gita Gurukul | Eternal Vedic Wisdom for the Modern Seeker",
+    template: "%s | Gita Gurukul",
+  },
+  description: "Discover the profound teachings of the Bhagavad Gita with Gita Gurukul. A perfect companion for daily reflection, spiritual growth, and bringing calmness into your everyday life through ancient Vedic wisdom and Krishna consciousness.",
+  keywords: ["Bhagavad Gita", "Gita Gurukul", "Vedic Wisdom", "Daily Reflection", "Spiritual Growth", "Krishna Consciousness", "Rishikesh", "Meditation", "Mindfulness Diary", "Hindu Philosophy"],
+  authors: [{ name: "Gita Gurukul" }],
+  creator: "Gita Gurukul",
+  publisher: "Gita Gurukul",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Gita Gurukul | Eternal Vedic Wisdom",
+    description: "Bring ancient Vedic wisdom into your modern daily life. Start your journey of spiritual growth and mindful reflection.",
+    url: "https://www.gitagurukul.com",
+    siteName: "Gita Gurukul",
+    images: [
+      {
+        url: "/images/1_1.png", // Hero image used as OG image
+        width: 1200,
+        height: 630,
+        alt: "Gita Gurukul - Eternal Wisdom",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gita Gurukul | Eternal Vedic Wisdom",
+    description: "Bring ancient Vedic wisdom into your modern daily life. Start your journey of spiritual growth and mindful reflection.",
+    images: ["/images/1_1.png"],
+  },
+  verification: {
+    google: "ADD_YOUR_GOOGLE_SEARCH_CONSOLE_HTML_TAG_ID_HERE",
+  },
+  other: {
+    "geo.region": "IN-UK",
+    "geo.placename": "Rishikesh",
+  }
 };
 
 export default function RootLayout({

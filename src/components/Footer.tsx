@@ -25,9 +25,9 @@ export default function Footer() {
         {/* Right Side: Links & Copyright */}
         <div className="flex flex-col gap-4 md:items-end">
           <div className="flex flex-wrap gap-4 md:gap-8 font-nav text-sm font-medium text-brand-tan/90">
-            <Link href="#" className="hover:text-brand-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-brand-primary transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-brand-primary transition-colors">Contact</Link>
+            <Link href="/privacy" className="hover:text-brand-primary transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-brand-primary transition-colors">Terms of Service</Link>
+            <Link href="/faq" className="hover:text-brand-primary transition-colors">FAQ</Link>
           </div>
           <p className="font-body text-xs text-brand-tan/50">
             © 2026 Gita Gurukul. All rights reserved.

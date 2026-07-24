@@ -35,7 +35,7 @@ export default function Donate() {
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px] flex flex-col gap-12 lg:gap-20">
           
           {/* Row 1: Text Left, Image Right */}
-          <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+          <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
             <div className="w-full lg:flex-1 flex flex-col gap-4 text-center lg:text-left">
               <h2 className="font-display font-black text-4xl lg:text-[48px] leading-[1.1] tracking-tight text-brand-dark mb-2">
                 Who We Serve
@@ -56,11 +56,11 @@ export default function Donate() {
 
           {/* Row 2: Image Left, Text Right */}
           {/* Mobile: Image Top -> flex-col */}
-          <AnimatedSection className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+          <AnimatedSection className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             <div className="w-full lg:w-1/2 h-[250px] lg:h-[300px] relative rounded-sm overflow-hidden shadow-md">
               <Image 
-                src="/images/usha_kiran_lke8fsdqqtc_unsplash_1.png" 
-                alt="Monk in meditation" 
+                src="/images/manojkumar_bathala_jqfrgnf7cqo_unsplash_1.png" 
+                alt="Chariot" 
                 fill
                 className="object-cover"
               />

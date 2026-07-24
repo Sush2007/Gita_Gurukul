@@ -16,7 +16,7 @@ export default function Home() {
               A diary worth<br />the success
             </h1>
             <p className="font-body text-base lg:text-lg leading-relaxed text-gray-800">
-              This Bhagavad Gita diary contains 27 handpicked shlokas that can transform the way you experience each day. As you engage with them, your mind grows steadier, calmer, and more focused. This is a companion for anyone seeking to stay connected to Krishna consciousness and receive its grace, one page at a time.
+              Discover the transformative power of ancient Vedic wisdom. This Bhagavad Gita diary contains 27 handpicked shlokas carefully curated to guide your daily reflection and spiritual growth. As you engage with these profound teachings, your mind grows steadier, calmer, and more focused. A perfect companion for anyone seeking mindfulness, inner peace, and a deeper connection to Krishna consciousness in the modern world, one page at a time.
             </p>
             
             {/* Buttons */}
@@ -53,9 +53,9 @@ export default function Home() {
             Why Thousands Begin Their Day With the Gita
           </h2>
           <p className="font-body text-base lg:text-lg leading-relaxed text-brand-tan">
-            The Bhagavad Gita isn't just meant to be read—it is meant to be lived.<br />
-            This journal transforms timeless teachings into practical daily exercises that help you build better habits, strengthen your mindset, and cultivate inner peace.<br />
-            Whether you're a student, professional, entrepreneur, or seeker, each day offers one small step toward a more balanced life.
+            The teachings of the Bhagavad Gita aren't just meant to be read—they are meant to be lived.<br />
+            Our unique spiritual journal transforms timeless Hindu philosophy and ancient Vedic wisdom into practical daily exercises. This guided reflection process helps you build better habits, strengthen your mindset, and cultivate deep inner peace.<br />
+            Whether you're a student, professional, entrepreneur, or a dedicated spiritual seeker in Rishikesh or beyond, each day offers one small step toward a more balanced, mindful, and successful life rooted in Krishna consciousness.
           </p>
           </div>
         </AnimatedSection>

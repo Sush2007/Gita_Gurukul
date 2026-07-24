@@ -55,8 +55,8 @@ export default function About() {
 
         {/* Purpose Section (Image Left, Text Right) */}
         {/* Mobile: Image on top -> flex-col lg:flex-row */}
-        <AnimatedSection className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
-           <div className="w-full max-w-[360px] lg:max-w-none mx-auto lg:w-[500px] h-[250px] lg:h-[200px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
+        <AnimatedSection className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+           <div className="w-full max-w-[360px] lg:max-w-none mx-auto lg:w-[500px] h-[250px] lg:h-[350px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
             <Image 
               src="/images/usha_kiran_lke8fsdqqtc_unsplash_1.png" 
               alt="Our Purpose" 
@@ -74,7 +74,7 @@ export default function About() {
 
         {/* Approach Section (Text Left, Image Right) */}
         {/* Mobile: Image on top -> flex-col-reverse lg:flex-row */}
-        <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+        <AnimatedSection className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
           <div className="w-full lg:flex-1 flex flex-col gap-5 text-center lg:text-left items-center lg:items-start">
             <h2 className="font-display font-black text-3xl lg:text-[40px] leading-[1.1] tracking-tight text-brand-dark">Our Approach</h2>
             <div className="font-body text-base lg:text-[17px] leading-relaxed text-gray-600 flex flex-col gap-2 text-center lg:text-left">
@@ -97,8 +97,8 @@ export default function About() {
 
         {/* Who We Serve Section (Image Left, Text Right) */}
         {/* Mobile: Image on top -> flex-col lg:flex-row */}
-        <AnimatedSection className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
-           <div className="w-full max-w-[360px] lg:max-w-none mx-auto lg:w-[500px] h-[250px] lg:h-[200px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
+        <AnimatedSection className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+           <div className="w-full max-w-[360px] lg:max-w-none mx-auto lg:w-[500px] h-[250px] lg:h-[350px] flex-shrink-0 relative rounded-sm overflow-hidden shadow-md">
             <Image 
               src="/images/sai_sai_jc_cyvf5jmk_unsplash_1.png" 
               alt="Who We Serve" 
