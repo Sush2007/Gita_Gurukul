@@ -21,6 +21,8 @@ export type LoginIntent = "CHECKOUT" | "PROFILE" | "NONE";
 export interface CheckoutData {
   amount: number;
   items: string;
+  donorName?: string;
+  donorMessage?: string;
 }
 
 interface AuthContextType {
@@ -110,6 +112,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         name: "Gita Gurukul",
         description: data.items,
         order_id: resData.orderId,
+        notes: {
+          donor_name: data.donorName || "",
+          donor_message: data.donorMessage || "",
+        },
         handler: async function (response: any) {
           try {
             const currentUser = auth.currentUser;
@@ -120,6 +126,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 razorpay_signature: response.razorpay_signature,
                 amount: data.amount,
                 items: data.items,
+                donor_name: data.donorName || "",
+                donor_message: data.donorMessage || "",
                 status: "Processing",
                 date: serverTimestamp(),
               });

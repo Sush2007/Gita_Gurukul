@@ -7,10 +7,17 @@ import { useAuth } from "@/context/AuthContext";
 export default function Donate() {
   const { user, profile, openLoginModal, initRazorpay } = useAuth();
   
-  const [selectedAmount, setSelectedAmount] = useState<number>(1000);
+  const [selectedAmount, setSelectedAmount] = useState<number>(1001);
   const [customAmount, setCustomAmount] = useState<string>("");
+  const [donorName, setDonorName] = useState<string>("");
+  const [donorMessage, setDonorMessage] = useState<string>("");
 
   const handleCheckout = () => {
+    if (!donorName.trim()) {
+      alert("Please enter your Full Name to proceed with the donation.");
+      return;
+    }
+
     const parsedCustom = parseInt(customAmount);
     const amount = (parsedCustom > 0) ? parsedCustom : selectedAmount;
     
@@ -21,7 +28,12 @@ export default function Donate() {
       return;
     }
 
-    const data = { amount, items: "Donation to Gita Gurukul" };
+    const data = { 
+      amount, 
+      items: "Donation to Gita Gurukul",
+      donorName,
+      donorMessage
+    };
     
     if (!user) {
       openLoginModal("CHECKOUT", data);
@@ -99,15 +111,27 @@ export default function Donate() {
                 <div className="flex flex-col gap-3">
                   <label className="font-body text-xs font-semibold text-brand-dark uppercase tracking-wide">Select Amount</label>
                   <div className="grid grid-cols-3 gap-3">
-                    {['₹101', '₹501', '₹1001', '₹1501', '₹2001'].map((amount) => (
-                      <button 
-                        key={amount}
-                        type="button"
-                        className="py-3 bg-transparent border border-[#D98A36]/30 text-brand-dark font-display font-bold rounded-sm hover:bg-[#D98A36] hover:text-white hover:border-[#D98A36] transition-colors text-sm lg:text-base"
-                      >
-                        {amount}
-                      </button>
-                    ))}
+                    {['101', '501', '1001', '1501', '2001'].map((amountStr) => {
+                      const amountVal = parseInt(amountStr);
+                      const isSelected = selectedAmount === amountVal && !customAmount;
+                      return (
+                        <button 
+                          key={amountStr}
+                          type="button"
+                          onClick={() => {
+                            setSelectedAmount(amountVal);
+                            setCustomAmount("");
+                          }}
+                          className={`py-3 border font-display font-bold rounded-sm transition-colors text-sm lg:text-base ${
+                            isSelected 
+                              ? "bg-[#D98A36] text-white border-[#D98A36]" 
+                              : "bg-transparent border-[#D98A36]/30 text-brand-dark hover:bg-[#D98A36] hover:text-white hover:border-[#D98A36]"
+                          }`}
+                        >
+                          ₹{amountStr}
+                        </button>
+                      );
+                    })}
                     <div className="flex items-center border border-[#D98A36]/30 bg-white rounded-sm px-3 py-3 col-span-1">
                       <span className="text-gray-500 mr-1 text-sm">₹</span>
                       <input 
@@ -134,16 +158,23 @@ export default function Donate() {
                 {/* Personal Info */}
                 <div className="flex flex-col gap-4 mt-2">
                   <div className="flex flex-col gap-1">
-                    <label className="font-body text-xs font-semibold text-brand-dark">Full Name</label>
-                    <input type="text" placeholder="Enter your full name" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
+                    <label className="font-body text-xs font-semibold text-brand-dark">Full Name <span className="text-red-500">*</span></label>
+                    <input 
+                      type="text" 
+                      placeholder="Enter your full name" 
+                      value={donorName}
+                      onChange={(e) => setDonorName(e.target.value)}
+                      className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" 
+                    />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <label className="font-body text-xs font-semibold text-brand-dark">Email address</label>
-                    <input type="email" placeholder="Enter your email address" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
-                  </div>
-                  <div className="flex items-center gap-3 mt-2">
-                    <input type="checkbox" id="dedicate" className="w-4 h-4 text-brand-primary border-gray-300 rounded focus:ring-brand-primary" />
-                    <label htmlFor="dedicate" className="font-body text-xs text-gray-500">Dedicate this donation in honor of someone</label>
+                    <label className="font-body text-xs font-semibold text-brand-dark">Message (Optional)</label>
+                    <textarea 
+                      placeholder="Write a message to accompany your donation..." 
+                      value={donorMessage}
+                      onChange={(e) => setDonorMessage(e.target.value)}
+                      className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary resize-none h-24"
+                    />
                   </div>
                 </div>
 
