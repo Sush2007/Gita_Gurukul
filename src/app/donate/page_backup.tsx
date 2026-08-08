@@ -15,11 +15,6 @@ export default function Donate() {
     const amount = (parsedCustom > 0) ? parsedCustom : selectedAmount;
     
     if (amount <= 0) return;
-    
-    if (amount < 101) {
-      alert("Minimum donation amount is ₹101");
-      return;
-    }
 
     const data = { amount, items: "Donation to Gita Gurukul" };
     
@@ -34,13 +29,109 @@ export default function Donate() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       
+      {/* Hero Section (Background Image with Overlay Text) */}
+      <div className="relative w-full h-[calc(100vh-85px)] mt-[85px] flex items-center justify-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <Image 
+            src="/images/1_1.png" 
+            alt="Support Eternal Wisdom" 
+            fill
+            className="object-cover object-top"
+          />
+          {/* Dark Overlay for text readability */}
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 text-center px-6 max-w-5xl flex flex-col gap-6">
+          <h1 className="font-display font-black text-4xl lg:text-[56px] leading-[1.1] tracking-tight text-white drop-shadow-md">
+            Support the Journey of Eternal Wisdom
+          </h1>
+          <p className="font-body text-base lg:text-lg text-white max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+            Your generous contribution helps us continue spreading the profound teachings of the Bhagavad Gita, creating tools for mindful reflection and spiritual growth.
+          </p>
+        </div>
+      </div>
+
       {/* How to give? Section */}
-      <div className="w-full bg-white pt-[120px] pb-16 lg:pt-[160px] lg:pb-24">
+      <div className="w-full bg-white py-16 lg:py-24">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px] flex flex-col gap-12 lg:gap-16">
+          
+          <div className="text-center">
+            <h2 className="font-display font-black text-4xl lg:text-[48px] leading-[1.1] tracking-tight text-brand-dark">
+              How to give?
+            </h2>
+          </div>
 
           <AnimatedSection className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             
-            {/* LEFT COLUMN: Why Donate Info */}
+            {/* LEFT COLUMN: Donation Form */}
+            <div className="w-full lg:w-1/2 bg-[#F9F9F8] p-8 lg:p-10 shadow-sm border border-brand-border/10 rounded-sm">
+              <h3 className="font-display font-black text-2xl lg:text-3xl text-brand-dark mb-6">
+                Make a Contribution
+              </h3>
+              
+              <form className="flex flex-col gap-6">
+                {/* Amount Selection */}
+                <div className="flex flex-col gap-3">
+                  <label className="font-body text-xs font-semibold text-brand-dark uppercase tracking-wide">Select Amount</label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {['₹101', '₹501', '₹1001', '₹1501', '₹2001'].map((amount) => (
+                      <button 
+                        key={amount}
+                        type="button"
+                        className="py-3 bg-transparent border border-[#D98A36]/30 text-brand-dark font-display font-bold rounded-sm hover:bg-[#D98A36] hover:text-white hover:border-[#D98A36] transition-colors text-sm lg:text-base"
+                      >
+                        {amount}
+                      </button>
+                    ))}
+                    <div className="flex items-center border border-[#D98A36]/30 bg-white rounded-sm px-3 py-3 col-span-1">
+                      <span className="text-gray-500 mr-1 text-sm">₹</span>
+                      <input 
+                        type="number" 
+                        placeholder="Custom" 
+                        min="0"
+                        value={customAmount}
+                        onChange={(e) => {
+                          setCustomAmount(e.target.value);
+                          if (e.target.value) setSelectedAmount(0);
+                        }}
+                        className="outline-none font-display font-bold w-full text-sm lg:text-base text-brand-dark bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Personal Info */}
+                <div className="flex flex-col gap-4 mt-2">
+                  <div className="flex flex-col gap-1">
+                    <label className="font-body text-xs font-semibold text-brand-dark">Full Name</label>
+                    <input type="text" placeholder="Enter your full name" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-body text-xs font-semibold text-brand-dark">Email address</label>
+                    <input type="email" placeholder="Enter your email address" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
+                  </div>
+                  <div className="flex items-center gap-3 mt-2">
+                    <input type="checkbox" id="dedicate" className="w-4 h-4 text-brand-primary border-gray-300 rounded focus:ring-brand-primary" />
+                    <label htmlFor="dedicate" className="font-body text-xs text-gray-500">Dedicate this donation in honor of someone</label>
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <button 
+                    type="button"
+                    onClick={handleCheckout}
+                    className="w-full bg-[#D98A36] text-white font-display font-bold text-lg py-4 rounded-sm shadow-md hover:bg-opacity-90 transition-all"
+                  >
+                    Donate Now
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* RIGHT COLUMN: Why Donate Info */}
             <div className="w-full lg:w-1/2 flex flex-col gap-8">
               <div>
                 <h3 className="font-display font-black text-2xl lg:text-3xl mb-4 text-brand-dark">Why Donate?</h3>
@@ -88,103 +179,7 @@ export default function Donate() {
               </div>
             </div>
             
-            {/* RIGHT COLUMN: Donation Form */}
-            <div className="w-full lg:w-1/2 bg-[#F9F9F8] p-8 lg:p-10 shadow-sm border border-brand-border/10 rounded-sm">
-              <h3 className="font-display font-black text-2xl lg:text-3xl text-brand-dark mb-6">
-                Make a Contribution
-              </h3>
-              
-              <form className="flex flex-col gap-6">
-                {/* Amount Selection */}
-                <div className="flex flex-col gap-3">
-                  <label className="font-body text-xs font-semibold text-brand-dark uppercase tracking-wide">Select Amount</label>
-                  <div className="grid grid-cols-3 gap-3">
-                    {['₹101', '₹501', '₹1001', '₹1501', '₹2001'].map((amount) => (
-                      <button 
-                        key={amount}
-                        type="button"
-                        className="py-3 bg-transparent border border-[#D98A36]/30 text-brand-dark font-display font-bold rounded-sm hover:bg-[#D98A36] hover:text-white hover:border-[#D98A36] transition-colors text-sm lg:text-base"
-                      >
-                        {amount}
-                      </button>
-                    ))}
-                    <div className="flex items-center border border-[#D98A36]/30 bg-white rounded-sm px-3 py-3 col-span-1">
-                      <span className="text-gray-500 mr-1 text-sm">₹</span>
-                      <input 
-                        type="number" 
-                        placeholder="Custom" 
-                        min="101"
-                        value={customAmount}
-                        onChange={(e) => {
-                          setCustomAmount(e.target.value);
-                          if (e.target.value) setSelectedAmount(0);
-                        }}
-                        onBlur={(e) => {
-                          const val = parseInt(e.target.value);
-                          if (val > 0 && val < 101) {
-                            setCustomAmount("101");
-                          }
-                        }}
-                        className="outline-none font-display font-bold w-full text-sm lg:text-base text-brand-dark bg-transparent"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Personal Info */}
-                <div className="flex flex-col gap-4 mt-2">
-                  <div className="flex flex-col gap-1">
-                    <label className="font-body text-xs font-semibold text-brand-dark">Full Name</label>
-                    <input type="text" placeholder="Enter your full name" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="font-body text-xs font-semibold text-brand-dark">Email address</label>
-                    <input type="email" placeholder="Enter your email address" className="border border-gray-200 bg-transparent rounded-sm p-3 font-body text-sm focus:outline-brand-primary" />
-                  </div>
-                  <div className="flex items-center gap-3 mt-2">
-                    <input type="checkbox" id="dedicate" className="w-4 h-4 text-brand-primary border-gray-300 rounded focus:ring-brand-primary" />
-                    <label htmlFor="dedicate" className="font-body text-xs text-gray-500">Dedicate this donation in honor of someone</label>
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <button 
-                    type="button"
-                    onClick={handleCheckout}
-                    className="w-full bg-[#D98A36] text-white font-display font-bold text-lg py-4 rounded-sm shadow-md hover:bg-opacity-90 transition-all"
-                  >
-                    Donate Now
-                  </button>
-                </div>
-              </form>
-            </div>
-
           </AnimatedSection>
-        </div>
-      </div>
-
-      {/* Hero Section (Background Image with Overlay Text) */}
-      <div className="relative w-full h-[calc(100vh-85px)] flex items-center justify-center">
-        {/* Background Image */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image 
-            src="/images/1_1.png" 
-            alt="Support Eternal Wisdom" 
-            fill
-            className="object-cover object-[center_25%]"
-          />
-          {/* Dark Overlay for text readability */}
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 text-center px-6 max-w-5xl flex flex-col gap-6">
-          <h1 className="font-display font-black text-4xl lg:text-[56px] leading-[1.1] tracking-tight text-white drop-shadow-md">
-            Support the Journey of Eternal Wisdom
-          </h1>
-          <p className="font-body text-base lg:text-lg text-white max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-            Your generous contribution helps us continue spreading the profound teachings of the Bhagavad Gita, creating tools for mindful reflection and spiritual growth.
-          </p>
         </div>
       </div>
 
@@ -235,13 +230,19 @@ export default function Donate() {
         </div>
       </div>
 
-      {/* Taglines Banner */}
+      {/* Goal Banner */}
       <AnimatedSection className="w-full bg-[#EAE8E3] py-8 lg:py-10 border-y border-brand-border/20">
-        <div className="max-w-4xl mx-auto px-6 text-center flex flex-col gap-4">
+        <div className="max-w-4xl mx-auto px-6 text-center">
           <p className="font-display text-lg lg:text-xl font-bold tracking-wider text-[#D98A36] uppercase">
             Our goal is simple: to let these seekers focus on their spiritual path, unburdened by basic hardship.
           </p>
-          <p className="font-display text-base lg:text-lg font-bold tracking-wider text-[#D98A36] uppercase">
+        </div>
+      </AnimatedSection>
+
+      {/* Footer Banner */}
+      <AnimatedSection className="w-full bg-[#EAE8E3] py-8 lg:py-10 border-t border-brand-border/20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="font-display text-sm lg:text-base font-bold tracking-wider text-[#D98A36] uppercase">
             Whether large or small, your contribution becomes part of a larger act of devotion, helping others walk their own path toward the Gita's wisdom.
           </p>
         </div>
@@ -250,3 +251,4 @@ export default function Donate() {
     </div>
   );
 }
+

@@ -36,7 +36,7 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="bg-white min-h-screen pt-[120px] pb-20">
+    <div className="bg-white min-h-screen pt-[140px] pb-20">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px]">
         <h1 className="font-display font-black text-4xl lg:text-5xl text-brand-dark mb-4 text-center">
           Frequently Asked Questions

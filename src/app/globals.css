@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
   --color-brand-primary: #E29A2C;
@@ -9,10 +9,10 @@
   --color-brand-tan: #F5DED2;
   --color-brand-footer: #112113;
   
-  --font-display: var(--font-momo);
-  --font-body: var(--font-commissioner);
-  --font-nav: var(--font-outfit);
-  --font-button: var(--font-roboto);
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-inter);
+  --font-nav: var(--font-inter);
+  --font-button: var(--font-inter);
 }
 
 :root {
@@ -25,3 +25,6 @@ body {
   color: var(--foreground);
 }
 
+h1, h2, h3, h4, h5, h6, .font-display {
+  -webkit-text-stroke: 0.7px currentColor;
+}

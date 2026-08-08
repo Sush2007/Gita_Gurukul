@@ -1,33 +1,25 @@
 import type { Metadata } from "next";
-import { Montserrat, Outfit, Commissioner, Roboto } from "next/font/google";
+import { Cormorant, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AuthProvider } from "@/context/AuthContext";
+import LoginModal from "@/components/LoginModal";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-momo",
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-});
-
-
-const outfit = Outfit({
-  variable: "--font-outfit",
+const cormorant = Cormorant({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
   subsets: ["latin"],
 });
 
-const commissioner = Commissioner({
-  variable: "--font-commissioner",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const roboto = Roboto({
-  variable: "--font-roboto",
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-});
+
 
 export const metadata: Metadata = {
   title: {
@@ -86,17 +78,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${outfit.variable} ${commissioner.variable} ${roboto.variable} h-full antialiased scroll-smooth`}
+      className={`${cormorant.variable} ${inter.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-body bg-white text-black">
-        <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <LoginModal />
+          <main className="flex-1 flex flex-col w-full min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </AuthProvider>
         <Analytics />
         <SpeedInsights />
       </body>
     </html>
   );
 }
+

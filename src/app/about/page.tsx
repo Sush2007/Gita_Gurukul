@@ -6,7 +6,7 @@ export default function About() {
     <div className="flex flex-col min-h-screen bg-white">
       
       {/* Container for Our Story (Full screen center) */}
-      <div className="w-full bg-[#FAFAF8] min-h-[calc(100vh-85px)] flex items-center pt-[85px]">
+      <div className="w-full bg-[#FAFAF8] min-h-[calc(100vh-130px)] flex items-center pt-[130px]">
         <div className="max-w-[1280px] w-full mx-auto relative overflow-hidden px-6 lg:px-[60px] py-12 lg:py-16">
           
           {/* Our Story Section (Asymmetric) */}
