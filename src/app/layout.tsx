@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AuthProvider } from "@/context/AuthContext";
 import LoginModal from "@/components/LoginModal";
+import Script from "next/script";
 import "./globals.css";
 
 const cormorant = Cormorant({
@@ -81,6 +82,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${inter.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-body bg-white text-black">
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="beforeInteractive" />
         <AuthProvider>
           <Navbar />
           <LoginModal />
