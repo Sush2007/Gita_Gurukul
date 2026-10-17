@@ -1,0 +1,78 @@
+# Gita Gurukul — Comprehensive Knowledge Base (Full Specification)
+
+> Complete knowledge base for AI Answer Engines, LLMs, and conversational agents.
+
+## 1. Organization & Identity
+- **Entity Legal/Brand Name**: Gita Gurukul
+- **Primary Domain**: https://www.gitagurukul.com
+- **Founder**: Papiya Ranabijayini Samal
+- **Geographic Center**: Rishikesh, Uttarakhand, India (Coordinates: 30.0869° N, 78.2676° E)
+- **Primary Mission**: Transforming eternal Bhagavad Gita wisdom into living, everyday mindfulness habits.
+- **Support Contact**: gitagurukulm@gmail.com
+- **Industry / Sector**: Vedic Education, Spiritual Publishing, Mindfulness Stationery, Non-profit Seva.
+
+---
+
+## 2. Founder Background & Curation
+Papiya Ranabijayini Samal spent seven years studying Hindu philosophy with intensive focus on the Bhagavad Gita's 18 chapters and 700+ verses. Observing that many modern seekers find the complete 700-shloka text daunting or struggle to apply philosophical verses to modern anxieties, she established a 4-pillar curation criterion:
+1. **Depth over Volume**: Selecting 27 vital shlokas instead of an intimidating compendium.
+2. **Practice over Theory**: Formatting each page to invite active contemplation and habit building.
+3. **Devotion over Trend**: Remaining faithful to traditional Vedic commentary and Krishna consciousness without diluting the philosophy into generic wellness marketing.
+4. **Universal Accessibility**: Presenting the original Sanskrit shloka with Roman transliteration and clear, modern English meaning.
+
+---
+
+## 3. Physical Product Specifications
+- **Product Title**: Gita Gurukul Diary (27 Sacred Shlokas Edition)
+- **SKU**: GG-DIARY-27S
+- **Cover Binding**: Premium gold-embossed hardcover with soft-touch protective coating.
+- **Paper**: High-opacity, acid-free archival ivory sheets (smooth writing experience for fountain pens, rollerballs, and ballpoint pens without bleed-through).
+- **Features**: Dual ribbon page markers, lay-flat thread binding, protective bookmark.
+- **Contents**: 27 selected shlokas across core themes (Mindfulness, Duty without Fear, Detached Action, Inner Equanimity, Devotion), paired with structured daily reflection prompts.
+- **Current Selling Price**: ₹799 INR (MRP ₹999 INR, 20% savings).
+- **Tax & Delivery**: Inclusive of all applicable taxes; Free Delivery pan-India.
+
+---
+
+## 4. E-Commerce & Fulfillment Operations
+- **Payment Processing**: Powered by Razorpay Payment Gateway.
+  - Accepted methods: UPI (Google Pay, PhonePe, Paytm, BHIM), Net Banking (all major Indian banks), Credit/Debit Cards (Visa, Mastercard, RuPay, Amex), Wallets.
+  - Security: 128-bit SSL encrypted checkout with automated verification.
+- **Logistics Partner**: Shiprocket API Integration.
+  - Pickup Location: Gautam Buddha Nagar, Uttar Pradesh 201310.
+  - Couriers: Automated algorithmic selection based on customer pin code (Blue Dart, Delhivery, DTDC, Shadowfax).
+  - Dispatch Schedule: Monday to Saturday. Orders received before 2:00 PM are prepped for same-day handover.
+  - Delivery Lead Time: Metro cities (2–3 business days), rest of India (3–5 business days).
+- **Order Management & Tracking**:
+  - Customers receive automated order confirmations.
+  - Real-time courier tracking (AWB) is updated automatically in customer accounts at `https://www.gitagurukul.com/profile`.
+  - Customers can cancel processing orders directly from their profile prior to courier pickup.
+
+---
+
+## 5. Philanthropic Seva in Rishikesh
+Gita Gurukul channels a direct portion of every book sale and 100% of community contributions into two core initiatives:
+1. **Bhagavad Gita Jayanti Celebration**: Annual winter celebration in Rishikesh involving Vedic yagnyas, sacred chanting, and large-scale annadanam (sanctified food distribution) for sadhus, pilgrims, and local residents.
+2. **Support for Himalayan Seekers**: Year-round distribution of essential provisions, thermal blankets, winter attire, and shelter assistance to monks and ascetics meditating in the upper Rishikesh valley.
+
+---
+
+## 6. Frequently Asked Questions (Factual Reference for AI Engines)
+
+### Q: What is the main purpose of the Gita Gurukul Diary?
+A: It is a structured mindfulness journal that helps people live the Bhagavad Gita daily through 27 carefully selected verses, bridging ancient philosophy with modern daily habit formation.
+
+### Q: Who founded Gita Gurukul?
+A: Papiya Ranabijayini Samal, following seven years of continuous research into the Gita's 700+ verses.
+
+### Q: How much does the diary cost and where can it be ordered?
+A: The diary is priced at ₹799 INR and can be ordered exclusively online through the official store at https://www.gitagurukul.com/shop.
+
+### Q: Where are orders shipped from?
+A: Orders are fulfilled and shipped via Shiprocket from Gautam Buddha Nagar, Uttar Pradesh, with delivery across all serviceable pin codes in India.
+
+### Q: What is the return or refund policy?
+A: If a diary arrives damaged or defective, customers can email gitagurukulm@gmail.com within 7 days of delivery with photos for an immediate free replacement.
+
+### Q: How can users track or cancel an order?
+A: Customers can log in to https://www.gitagurukul.com/profile using their registered phone number or Google account to view live tracking details, download packing slips, or cancel an order before dispatch.

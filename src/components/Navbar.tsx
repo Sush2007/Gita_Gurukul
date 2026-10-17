@@ -2,15 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { CircleUser } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState<{ enabled: boolean; text: string } | null>(null);
   const { user, openLoginModal } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.settings?.announcement_enabled && data?.settings?.announcement_text) {
+          setAnnouncement({
+            enabled: data.settings.announcement_enabled,
+            text: data.settings.announcement_text,
+          });
+        } else {
+          setAnnouncement(null);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleProfileClick = () => {
     if (user) {
@@ -22,9 +39,16 @@ export default function Navbar() {
   };
 
   return (
-    <div className="w-full fixed top-0 z-50 flex flex-col transition-all duration-300 backdrop-blur-md bg-brand-dark/95 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border-b border-brand-primary/10">
+    <header className="w-full sticky top-0 z-50 flex flex-col transition-all duration-300 backdrop-blur-md bg-brand-dark/95 shadow-[0_4px_24px_rgba(0,0,0,0.12)] border-b border-white/[0.08]">
+      {/* Dynamic Announcement Bar */}
+      {announcement?.enabled && announcement?.text && (
+        <div className="w-full bg-gradient-to-r from-[#D98A36] via-[#E89E3C] to-[#D98A36] text-white text-xs md:text-sm font-medium py-2 px-4 text-center tracking-wide flex items-center justify-center gap-2 border-b border-black/10 shadow-inner transition-all">
+          <span className="text-amber-100 text-sm">✨</span>
+          <span className="tracking-wide drop-shadow-xs font-semibold">{announcement.text}</span>
+        </div>
+      )}
       <div className="w-full">
-        <nav className="w-full max-w-[1280px] mx-auto h-[85px] flex justify-between items-center px-6 lg:px-[60px]">
+        <nav className="w-full max-w-[1280px] mx-auto h-[82px] flex justify-between items-center px-4 sm:px-6 lg:px-[60px]">
         
         {/* Standardized Logo */}
         <Link href="/" className="flex-shrink-0 flex items-center">
@@ -38,7 +62,7 @@ export default function Navbar() {
         </Link>
         
         {/* Navigation Links and Button */}
-        <div className="flex items-center gap-4 md:gap-10">
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-10">
           
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-10">
@@ -66,10 +90,10 @@ export default function Navbar() {
           {/* User Profile Icon */}
           <button 
             onClick={handleProfileClick}
-            className="hidden md:flex text-white hover:text-brand-primary transition-colors ml-2"
+            className="flex text-white hover:text-brand-primary transition-colors"
             aria-label="User Profile"
           >
-            <CircleUser strokeWidth={2} size={32} />
+            <CircleUser strokeWidth={2} className="w-7 h-7 md:w-8 md:h-8" />
           </button>
 
           {/* Mobile Hamburger Icon */}
@@ -136,6 +160,6 @@ export default function Navbar() {
           </button>
         </div>
       )}
-    </div>
+    </header>
   );
 }

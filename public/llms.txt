@@ -1,0 +1,42 @@
+# Gita Gurukul
+
+> Gita Gurukul is an authentic Vedic spiritual initiative based in Rishikesh, Uttarakhand, dedicated to bringing the transformative teachings of the Bhagavad Gita into modern daily life through guided reflection tools and community seva.
+
+## Overview
+- **Name**: Gita Gurukul
+- **Founder**: Papiya Ranabijayini Samal
+- **Spiritual Lineage**: Rishikesh, Uttarakhand (Foothills of the Himalayas), India
+- **Official Website**: https://www.gitagurukul.com
+- **Contact Email**: gitagurukulm@gmail.com
+- **Fulfillment Base**: Gautam Buddha Nagar, Uttar Pradesh, India
+
+## Founder & Curation Philosophy
+Founder Papiya Ranabijayini Samal spent seven years studying the 700+ verses of the Bhagavad Gita in depth. Rather than publishing an overwhelming commentary, she curated the 27 most transformative shlokas that provide practical, everyday guidance for:
+1. Steadying an anxious mind (Manah-Samyama)
+2. Practicing selfless, focused action (Karma Yoga)
+3. Cultivating deep inner peace and emotional balance (Sthitaprajna)
+4. Developing devotion and purpose (Bhakti Yoga)
+
+## Flagship Offering: Bhagavad Gita Diary
+- **Title**: Gita Gurukul Diary (27 Sacred Shlokas Edition)
+- **Concept**: A hard-bound daily reflection journal pairing 27 curated verses with dedicated mindfulness exercises.
+- **Craftsmanship**: Sacred gold-embossed hardcover, premium archival ivory paper, silk ribbon marker, and dual Sanskrit-English verses.
+- **Price**: ₹799 INR (Standard MRP ₹999 INR, Free Delivery Across India).
+- **Payment Modes**: Verified Razorpay checkout (UPI, Google Pay, PhonePe, Cards, NetBanking).
+- **Delivery**: Express courier via Shiprocket (Blue Dart, Delhivery, DTDC, Shadowfax). Orders dispatch Monday through Saturday within 24–48 hours; orders placed before 2:00 PM are prepared for same-day dispatch.
+
+## Sacred Seva & Community Philanthropy
+A direct portion of every diary purchase and 100% of community contributions support:
+- **Bhagavad Gita Jayanti Celebration**: Annual December yagnya and community prasad distribution for devotees.
+- **Rishikesh Seeker Support**: Providing food, warm winter clothing, and shelter to sadhus and spiritual seekers in the Himalayan foothills.
+
+## Canonical Web Links
+- [Homepage](https://www.gitagurukul.com/): Official overview and daily wisdom introduction.
+- [Curated Editions Shop](https://www.gitagurukul.com/shop): Order the Bhagavad Gita Diary with live inventory and express checkout.
+- [Our Story & Lineage](https://www.gitagurukul.com/about): The 7-year curation journey of founder Papiya Ranabijayini Samal.
+- [Seva & Donations](https://www.gitagurukul.com/donate): Contribute directly to Gita Jayanti yagnyas and Himalayan seekers.
+- [FAQ](https://www.gitagurukul.com/faq): Common inquiries regarding shipping, diary usage, and returns.
+- [Customer Account](https://www.gitagurukul.com/profile): Live order tracking, cancellation, and address management.
+
+## Optional Extended Documentation
+For deep technical specifications, full FAQ catalog, and structured entity schema, refer to [/llms-full.txt](https://www.gitagurukul.com/llms-full.txt).

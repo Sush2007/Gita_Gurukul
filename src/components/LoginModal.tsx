@@ -1,12 +1,12 @@
-﻿"use client";
+"use client";
 
 import { useAuth } from "@/context/AuthContext";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { X, ShieldCheck, ArrowRight, Loader2, MapPin, User, Mail, Phone } from "lucide-react";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { supabase } from "@/lib/supabase";
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function LoginModal() {
@@ -21,6 +21,7 @@ export default function LoginModal() {
     email: "",
     phone: "",
     address: "",
+    city: "",
     state: "",
     pincode: "",
   });
@@ -53,21 +54,24 @@ export default function LoginModal() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+      const { data: existingProfile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.uid)
+        .maybeSingle();
       
-      if (docSnap.exists() && docSnap.data().address && docSnap.data().pincode) {
+      if (existingProfile && existingProfile.address && existingProfile.pincode) {
         toast.success("Logged in successfully!");
-        updateProfileState(docSnap.data() as any);
-        await handleResolveIntent(docSnap.data());
+        updateProfileState(existingProfile as any);
+        await handleResolveIntent(existingProfile);
       } else {
         toast.success("Logged in successfully! Please complete your profile.");
-        if (docSnap.exists()) {
+        if (existingProfile) {
           setAddressData(prev => ({
             ...prev, 
-            ...docSnap.data(),
-            name: docSnap.data().name || user.displayName || "",
-            email: docSnap.data().email || user.email || ""
+            ...existingProfile,
+            name: existingProfile.name || user.displayName || "",
+            email: existingProfile.email || user.email || ""
           }));
         } else {
            setAddressData(prev => ({
@@ -96,9 +100,11 @@ export default function LoginModal() {
       if (!user) throw new Error("No authenticated user");
       
       const updatedProfile = {
+        id: user.uid,
         ...addressData,
+        updated_at: new Date().toISOString(),
       };
-      await setDoc(doc(db, "users", user.uid), updatedProfile, { merge: true });
+      await supabase.from("profiles").upsert(updatedProfile);
       updateProfileState(updatedProfile);
       toast.success("Shipping details saved!");
       await handleResolveIntent(updatedProfile);
@@ -131,7 +137,7 @@ export default function LoginModal() {
         </div>
 
         {/* Content */}
-        <div className="p-8 max-h-[80vh] overflow-y-auto">
+        <div className="p-5 sm:p-8 max-h-[85vh] overflow-y-auto">
           {step === "SIGN_IN" && (
             <div className="flex flex-col gap-6">
               <div className="text-center mb-2">
@@ -235,6 +241,18 @@ export default function LoginModal() {
                     placeholder="House No, Street, Landmark" 
                     rows={2}
                     className="border border-gray-200 bg-gray-50 rounded-md p-3 font-body font-semibold text-sm focus:outline-brand-primary resize-none" 
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="font-body text-sm font-semibold text-black">City</label>
+                  <input 
+                    type="text" 
+                    value={addressData.city}
+                    onChange={(e) => setAddressData({...addressData, city: e.target.value})}
+                    placeholder="Enter your city" 
+                    className="border border-gray-200 bg-gray-50 rounded-md p-3 font-body font-semibold text-sm focus:outline-brand-primary" 
                     required
                   />
                 </div>

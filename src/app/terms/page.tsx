@@ -1,14 +1,33 @@
 
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Gita Gurukul",
+  description: "Terms of service, fulfillment policies, and user agreements for the Gita Gurukul platform.",
+  alternates: {
+    canonical: "/terms",
+  },
+};
+
 export default function Terms() {
   return (
-    <div className="bg-[#FDFBF7] min-h-screen pt-[100px] pb-20">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px]">
-        <h1 className="font-display font-normal text-4xl lg:text-5xl text-brand-dark mb-8 text-center">
-          Terms & Conditions
-        </h1>
+    <div className="bg-[#FDFBF7] min-h-screen pt-8 md:pt-12 lg:pt-14 pb-20">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-10 animate-in fade-in duration-500">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-100 border border-gray-300 text-gray-900 text-xs font-semibold tracking-wide mb-3 shadow-xs">
+            <span>📜</span>
+            <span>Terms of Service</span>
+          </div>
+          <h1 className="font-display font-medium text-3xl sm:text-4xl lg:text-5xl text-brand-dark mb-2">
+            Terms &amp; Conditions
+          </h1>
+          <p className="font-body text-gray-600 text-sm sm:text-base">
+            Last updated: October 2026 • Clear and transparent store terms
+          </p>
+        </div>
         
-        <div className="font-body font-semibold text-xl lg:text-xl text-black space-y-8 leading-relaxed">
+        <div className="bg-[#FAF7F2] p-8 lg:p-12 rounded-3xl border border-brand-primary/15 shadow-[0_4px_24px_rgba(17,33,19,0.02)] font-body font-semibold text-lg lg:text-lg text-gray-800 space-y-8 leading-relaxed">
           <section>
             <h2 className="font-display font-normal text-2xl text-brand-dark mb-3">1. Introduction</h2>
             <p>

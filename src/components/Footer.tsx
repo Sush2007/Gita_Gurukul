@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-brand-footer py-4 lg:py-6 mt-12">
-      <div className="max-w-[1280px] w-full mx-auto px-6 lg:px-[60px] flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+    <footer className="w-full bg-brand-footer border-t border-brand-primary/20 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] py-8 lg:py-10 mt-auto">
+      <div className="max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-[60px] flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         
         {/* Left Side: Logo & Description aligned perfectly with Navbar */}
         <div className="flex flex-col gap-3 max-w-sm">
@@ -28,6 +28,7 @@ export default function Footer() {
             <Link href="/privacy" className="hover:text-brand-primary transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-brand-primary transition-colors">Terms of Service</Link>
             <Link href="/faq" className="hover:text-brand-primary transition-colors">FAQ</Link>
+            <Link href="/admin" className="hover:text-brand-primary transition-colors opacity-75">Admin Portal</Link>
           </div>
           <p className="font-body font-semibold text-xs text-brand-tan/50">
             © 2026 Gita Gurukul. All rights reserved.

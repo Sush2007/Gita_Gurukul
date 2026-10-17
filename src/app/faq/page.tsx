@@ -36,22 +36,28 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="bg-[#FDFBF7] min-h-screen pt-[100px] pb-20">
+    <div className="bg-[#FDFBF7] min-h-screen pt-8 md:pt-12 lg:pt-14 pb-20">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px]">
-        <h1 className="font-display font-normal text-4xl lg:text-5xl text-brand-dark mb-4 text-center">
-          Frequently Asked Questions
-        </h1>
-        <p className="font-body text-lg text-brand-primary font-semibold text-center mb-12">
-          Learn more about our mission, our Bhagavad Gita diaries, and our roots in Rishikesh.
-        </p>
+        <div className="flex flex-col items-center text-center mb-12 animate-in fade-in duration-500">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF3C7] border border-[#FDE68A] text-[#92400E] text-xs font-semibold tracking-wide mb-3 shadow-xs">
+            <span>❓</span>
+            <span>Support &amp; Community Guide</span>
+          </div>
+          <h1 className="font-display font-medium text-3xl sm:text-4xl lg:text-5xl text-brand-dark mb-3">
+            Frequently Asked Questions
+          </h1>
+          <p className="font-body text-base sm:text-lg text-gray-600 max-w-xl">
+            Learn more about our mission, our Bhagavad Gita diaries, delivery timelines, and our roots in Rishikesh.
+          </p>
+        </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-brand-tan/10 p-6 lg:p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-brand-primary/20">
-              <h3 className="font-display font-normal text-xl lg:text-2xl text-brand-dark mb-3">
+            <div key={index} className="bg-[#FAF7F2] p-6 lg:p-8 rounded-3xl shadow-[0_4px_24px_rgba(17,33,19,0.03)] border border-brand-primary/15 hover:border-brand-primary/30 transition-all">
+              <h3 className="font-display font-medium text-lg sm:text-xl text-brand-dark mb-2.5">
                 {faq.question}
               </h3>
-              <p className="font-body font-semibold text-black leading-relaxed">
+              <p className="font-body font-semibold text-gray-700 leading-relaxed text-sm sm:text-base">
                 {faq.answer}
               </p>
             </div>

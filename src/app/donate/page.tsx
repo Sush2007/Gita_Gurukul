@@ -47,16 +47,20 @@ export default function Donate() {
     <div className="flex flex-col min-h-screen bg-[#FDFBF7]">
       
       {/* How to give? Section */}
-      <div className="w-full bg-[#FDFBF7] pt-[120px] pb-16 lg:pt-[160px] lg:pb-24">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[60px] flex flex-col gap-12 lg:gap-16">
+      <div className="w-full bg-[#FDFBF7] pt-8 md:pt-12 lg:pt-14 pb-16 lg:pb-24">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[60px] flex flex-col gap-10 lg:gap-14">
 
           <AnimatedSection className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             
             {/* LEFT COLUMN: Why Donate Info */}
-            <div className="w-full lg:w-1/2 flex flex-col gap-8">
+            <div className="w-full lg:w-1/2 flex flex-col gap-6 animate-in fade-in duration-500">
               <div>
-                <h3 className="font-display font-normal text-2xl lg:text-3xl mb-4 text-brand-dark">Why Donate?</h3>
-                <p className="font-body font-semibold text-lg lg:text-lg text-black leading-relaxed">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF3C7] border border-[#FDE68A] text-[#92400E] text-xs font-semibold tracking-wide mb-3 shadow-xs">
+                  <span>🪷</span>
+                  <span>Seva &amp; Gurukul Contribution</span>
+                </div>
+                <h1 className="font-display font-medium text-3xl sm:text-4xl lg:text-5xl mb-3 text-brand-dark">Why Donate?</h1>
+                <p className="font-body text-base sm:text-lg text-gray-700 leading-relaxed">
                   Your support is vital. By donating to Gita Gurukul, you are directly investing in the curation, design, and distribution of resources that bring ancient Vedic wisdom into modern daily lives.
                 </p>
               </div>
@@ -101,7 +105,7 @@ export default function Donate() {
             </div>
             
             {/* RIGHT COLUMN: Donation Form */}
-            <div className="w-full lg:w-1/2 bg-[#F9F9F8] p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-brand-primary/20 rounded-2xl">
+            <div className="w-full lg:w-1/2 bg-[#F9F9F8] p-5 sm:p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-brand-primary/20 rounded-2xl">
               <h3 className="font-display font-normal text-2xl lg:text-3xl text-brand-dark mb-6">
                 Make a Contribution
               </h3>

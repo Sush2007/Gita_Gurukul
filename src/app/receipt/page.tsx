@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import AnimatedSection from "@/components/AnimatedSection";
 import { CheckCircle, ArrowLeft } from "lucide-react";
@@ -12,7 +12,7 @@ function ReceiptContent() {
   const amount = searchParams.get("amount") || "799";
 
   return (
-    <div className="bg-[#FDFBF7] rounded-lg shadow-xl border border-brand-tan/20 overflow-hidden text-center p-10 flex flex-col items-center w-full">
+    <div className="bg-[#FDFBF7] rounded-2xl shadow-xl border border-brand-tan/20 overflow-hidden text-center p-6 sm:p-10 flex flex-col items-center w-full">
       <div className="w-20 h-20 bg-[#f0fdf4] text-[#166534] rounded-full flex items-center justify-center mb-6 shadow-sm border border-[#bbf7d0]">
         <CheckCircle size={40} />
       </div>
@@ -20,15 +20,15 @@ function ReceiptContent() {
       <h1 className="font-display font-normal text-3xl lg:text-4xl text-brand-dark mb-4">
         Payment Successful!
       </h1>
-      <p className="font-body font-semibold text-gray-950 text-lg mb-8">
+      <p className="font-body font-semibold text-gray-950 text-base sm:text-lg mb-8">
         Thank you for your purchase. We are preparing your Bhagavad Gita diaries for shipping.
       </p>
 
-      <div className="w-full bg-gray-50 border border-gray-100 rounded-md p-6 text-left mb-8">
+      <div className="w-full bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 text-left mb-8">
         <h3 className="font-display font-normal text-lg text-brand-dark mb-4 border-b border-gray-200 pb-2">Order Summary</h3>
-        <div className="flex justify-between items-center mb-2 font-body font-semibold text-black">
+        <div className="flex justify-between items-center mb-2 font-body font-semibold text-black gap-2">
           <span>Order ID:</span>
-          <span className="font-semibold font-display break-all ml-4 text-right">{orderId}</span>
+          <span className="font-semibold font-display break-all text-right text-xs sm:text-base">{orderId}</span>
         </div>
         <div className="flex justify-between items-center mb-2 font-body font-semibold text-black">
           <span>Amount Paid:</span>
@@ -41,7 +41,7 @@ function ReceiptContent() {
       </div>
 
       <Link href="/profile">
-        <button className="bg-brand-primary text-white font-button font-bold px-8 py-3 rounded-md shadow-md hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(226,154,44,0.3)] transition-all duration-300 flex items-center gap-2">
+        <button className="bg-brand-primary text-white font-button font-bold px-8 py-3.5 rounded-xl shadow-md hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(226,154,44,0.3)] transition-all duration-300 flex items-center gap-2">
           <ArrowLeft size={20} /> Return to Dashboard
         </button>
       </Link>
@@ -51,8 +51,8 @@ function ReceiptContent() {
 
 export default function ReceiptPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#faf7f2] pt-[140px] pb-20 items-center justify-center">
-      <AnimatedSection className="max-w-xl w-full mx-auto px-6">
+    <div className="flex flex-col min-h-screen bg-[#faf7f2] pt-8 md:pt-14 pb-20 items-center justify-center">
+      <AnimatedSection className="max-w-xl w-full mx-auto px-4 sm:px-6">
         <Suspense fallback={<div>Loading receipt...</div>}>
           <ReceiptContent />
         </Suspense>

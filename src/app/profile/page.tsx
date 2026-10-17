@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { User, MapPin, Mail, Phone, ShieldCheck, LogOut, Loader2, Edit3, Package, Calendar, IndianRupee } from "lucide-react";
-import { db } from "@/lib/firebase";
-import { doc, setDoc, collection, getDocs, query, orderBy } from "firebase/firestore";
+import { supabase } from "@/lib/supabase";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function ProfilePage() {
@@ -17,11 +16,14 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [orders, setOrders] = useState<any[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     address: "",
+    city: "",
     state: "",
     pincode: "",
   });
@@ -37,7 +39,9 @@ export default function ProfilePage() {
       setFormData({
         name: profile.name || "",
         email: profile.email || "",
+        phone: profile.phone || user?.phoneNumber || "",
         address: profile.address || "",
+        city: profile.city || "",
         state: profile.state || "",
         pincode: profile.pincode || "",
       });
@@ -45,31 +49,59 @@ export default function ProfilePage() {
         setIsEditing(true);
       }
     }
-  }, [profile]);
+  }, [profile, user]);
+
+  const fetchOrders = async () => {
+    if (user) {
+      try {
+        const { data, error } = await supabase
+          .from("orders")
+          .select("*")
+          .eq("user_id", user.uid)
+          .order("created_at", { ascending: false });
+
+        if (data) {
+          setOrders(data);
+        } else if (error) {
+          console.error("Supabase orders query error:", error.message);
+        }
+      } catch (error) {
+        console.error("Error fetching orders from Supabase:", error);
+      } finally {
+        setLoadingOrders(false);
+      }
+    }
+  };
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      if (user) {
-        try {
-          const ordersRef = collection(db, "users", user.uid, "orders");
-          const q = query(ordersRef, orderBy("date", "desc"));
-          const querySnapshot = await getDocs(q);
-          const fetchedOrders: any[] = [];
-          querySnapshot.forEach((doc) => {
-            fetchedOrders.push({ id: doc.id, ...doc.data() });
-          });
-          setOrders(fetchedOrders);
-        } catch (error) {
-          console.error("Error fetching orders:", error);
-        } finally {
-          setLoadingOrders(false);
-        }
-      }
-    };
     if (user) {
       fetchOrders();
     }
   }, [user]);
+
+  const handleCancelOrder = async (orderId: string) => {
+    if (!confirm("Are you sure you want to cancel this order?")) return;
+    setCancellingId(orderId);
+    const toastId = toast.loading("Cancelling order...");
+    try {
+      const res = await fetch("/api/orders/cancel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId, userId: user?.uid }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        toast.success("Order cancelled successfully", { id: toastId });
+        await fetchOrders();
+      } else {
+        toast.error(data.error || "Failed to cancel order", { id: toastId });
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Failed to cancel order", { id: toastId });
+    } finally {
+      setCancellingId(null);
+    }
+  };
 
   if (loading || !user) {
     return (
@@ -89,15 +121,17 @@ export default function ProfilePage() {
     setSaving(true);
     try {
       const updatedProfile = {
+        id: user.uid,
         ...formData,
-        phone: user.phoneNumber || "",
+        phone: formData.phone || user?.phoneNumber || "",
+        updated_at: new Date().toISOString(),
       };
-      await setDoc(doc(db, "users", user.uid), updatedProfile, { merge: true });
+      await supabase.from("profiles").upsert(updatedProfile);
       updateProfileState(updatedProfile);
       toast.success("Profile saved successfully!");
       setIsEditing(false);
     } catch (error) {
-      console.error("Error saving profile:", error);
+      console.error("Error saving profile to Supabase:", error);
       toast.error("Failed to save profile. Please try again.");
     } finally {
       setSaving(false);
@@ -111,22 +145,26 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-130px)] pt-[130px] bg-[#faf7f2] pb-20">
+    <div className="flex flex-col min-h-[calc(100vh-80px)] pt-8 md:pt-12 bg-[#faf7f2] pb-20">
       <Toaster position="top-center" />
-      <div className="max-w-4xl mx-auto w-full px-6">
+      <div className="max-w-4xl mx-auto w-full px-4 sm:px-6">
         
-        <AnimatedSection className="mb-10 text-center flex flex-col items-center">
-          <h1 className="font-display font-normal text-3xl lg:text-5xl text-brand-dark mb-4">
-            Dashboard
+        <AnimatedSection className="mb-8 text-center flex flex-col items-center animate-in fade-in duration-500">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-900 text-xs font-semibold tracking-wide mb-3 shadow-xs">
+            <span>👤</span>
+            <span>Customer Portal</span>
+          </div>
+          <h1 className="font-display font-medium text-3xl sm:text-4xl lg:text-5xl text-brand-dark mb-2">
+            My Account &amp; Orders
           </h1>
-          <p className="font-body font-semibold text-gray-950 text-lg">
-            Manage your account and view past purchases.
+          <p className="font-body text-gray-600 text-base">
+            Manage your delivery address, live courier tracking, and order history.
           </p>
         </AnimatedSection>
 
         {/* PROFILE CARD */}
         <AnimatedSection delay={100} className="bg-[#FDFBF7] rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-brand-primary/20 overflow-hidden mb-10">
-          <div className="bg-brand-dark px-8 py-6 flex items-center justify-between flex-wrap gap-4">
+          <div className="bg-brand-dark px-5 sm:px-8 py-5 sm:py-6 flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center text-white">
                 <User size={32} />
@@ -150,7 +188,7 @@ export default function ProfilePage() {
             </button>
           </div>
 
-          <div className="p-8">
+          <div className="p-5 sm:p-8">
             <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
               <h3 className="font-display font-normal text-xl text-brand-dark">
                 Shipping Details
@@ -177,12 +215,24 @@ export default function ProfilePage() {
                     <input type="email" name="email" value={formData.email} onChange={handleChange} className="border border-gray-200 bg-gray-50 rounded-md p-3 font-body font-semibold text-sm focus:outline-brand-primary" />
                   </div>
                   <div className="flex flex-col gap-2 md:col-span-2">
-                    <label className="font-body text-sm font-semibold text-black">Phone Number (Verified)</label>
-                    <input type="text" value={user.phoneNumber || ""} disabled className="border border-gray-200 bg-gray-100 rounded-md p-3 font-body font-semibold text-sm text-gray-500 cursor-not-allowed" />
+                    <label className="font-body text-sm font-semibold text-black">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      name="phone" 
+                      value={formData.phone} 
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value.replace(/\D/g, '') }))} 
+                      placeholder="Enter your mobile number" 
+                      className="border border-gray-200 bg-gray-50 rounded-md p-3 font-body font-semibold text-sm focus:outline-brand-primary" 
+                      required 
+                    />
                   </div>
                   <div className="flex flex-col gap-2 md:col-span-2">
                     <label className="font-body text-sm font-semibold text-black">Complete Address</label>
                     <textarea name="address" value={formData.address} onChange={handleChange} rows={2} className="border border-gray-200 bg-gray-50 rounded-md p-3 font-body font-semibold text-sm focus:outline-brand-primary resize-none" required />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="font-body text-sm font-semibold text-black">City</label>
+                    <input type="text" name="city" value={formData.city} onChange={handleChange} className="border border-gray-200 bg-gray-50 rounded-md p-3 font-body font-semibold text-sm focus:outline-brand-primary" required />
                   </div>
                   <div className="flex flex-col gap-2">
                     <label className="font-body text-sm font-semibold text-black">State</label>
@@ -207,9 +257,9 @@ export default function ProfilePage() {
                   <p className="font-body font-semibold text-black text-[15px]">{profile?.address || "No address provided."}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">State & Pincode</p>
+                  <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">City, State & Pincode</p>
                   <p className="font-body font-semibold text-black text-[15px]">
-                    {profile?.state ? `${profile.state}, ${profile.pincode}` : "Not provided"}
+                    {profile?.state ? `${profile.city ? profile.city + ', ' : ''}${profile.state}, ${profile.pincode}` : "Not provided"}
                   </p>
                 </div>
                 <div>
@@ -218,7 +268,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">Phone Number</p>
-                  <p className="font-body font-semibold text-black text-[15px]">{user.phoneNumber}</p>
+                  <p className="font-body font-semibold text-black text-[15px]">{profile?.phone || user?.phoneNumber || "Not provided"}</p>
                 </div>
               </div>
             )}
@@ -227,7 +277,7 @@ export default function ProfilePage() {
 
         {/* PAST PURCHASES CARD */}
         <AnimatedSection delay={200} className="bg-[#FDFBF7] rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-brand-primary/20 overflow-hidden">
-          <div className="p-8">
+          <div className="p-5 sm:p-8">
             <h3 className="font-display font-normal text-xl text-brand-dark mb-6 flex items-center gap-2">
               <Package className="text-brand-primary" />
               Past Purchases
@@ -243,27 +293,55 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="flex flex-col gap-4">
-                {orders.map((order, idx) => (
-                  <div key={idx} className="border border-gray-100 rounded-lg p-5 hover:border-brand-primary/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="font-display font-normal text-brand-dark">{order.razorpay_order_id || order.id}</span>
-                        <span className="bg-[#f0fdf4] text-[#166534] text-xs font-bold px-2.5 py-0.5 rounded-full border border-[#bbf7d0]">
-                          {order.status || "Completed"}
-                        </span>
+                {orders.map((order, idx) => {
+                  const status = order.order_status || order.status || "Processing";
+                  const isProcessing = status.toLowerCase() === "processing";
+                  const isCancelled = status.toLowerCase() === "cancelled";
+                  const isShipped = status.toLowerCase() === "shipped";
+                  const isDelivered = status.toLowerCase() === "delivered";
+
+                  return (
+                    <div key={idx} className="border border-gray-100 rounded-lg p-5 hover:border-brand-primary/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2 flex-wrap">
+                          <span className="font-display font-normal text-brand-dark break-all">{order.razorpay_order_id || order.id}</span>
+                          <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+                            isDelivered ? "bg-[#f0fdf4] text-[#166534] border-[#bbf7d0]" :
+                            isShipped ? "bg-blue-50 text-blue-800 border-blue-200" :
+                            isCancelled ? "bg-red-50 text-red-800 border-red-200" :
+                            "bg-amber-50 text-amber-800 border-amber-200"
+                          }`}>
+                            {status}
+                          </span>
+                        </div>
+                        <p className="font-body font-semibold text-sm text-gray-950 mb-1">{order.items}</p>
+                        <p className="font-body font-semibold text-xs text-gray-400 flex items-center gap-1">
+                          <Calendar size={12} /> Ordered on {order.created_at ? new Date(order.created_at).toLocaleDateString() : (order.date?.toDate ? new Date(order.date.toDate()).toLocaleDateString() : "Recently")}
+                        </p>
+                        {order.shiprocket?.courier_name && (
+                          <p className="font-body text-xs text-blue-700 font-semibold mt-1.5 flex items-center gap-1">
+                            Courier: {order.shiprocket.courier_name} {order.shiprocket?.awb_code ? `• AWB: ${order.shiprocket.awb_code}` : ""}
+                          </p>
+                        )}
                       </div>
-                      <p className="font-body font-semibold text-sm text-gray-950 mb-1">{order.items}</p>
-                      <p className="font-body font-semibold text-xs text-gray-400 flex items-center gap-1">
-                        <Calendar size={12} /> Ordered on {order.date ? new Date(order.date.toDate()).toLocaleDateString() : "Recently"}
-                      </p>
+                      <div className="flex flex-col sm:items-end justify-between gap-2">
+                        <p className="font-display font-normal text-lg text-brand-primary flex items-center sm:justify-end">
+                          <IndianRupee size={16} /> {order.amount}
+                        </p>
+                        {isProcessing && order.type !== "donation" && (
+                          <button
+                            onClick={() => handleCancelOrder(order.id)}
+                            disabled={cancellingId === order.id}
+                            className="text-xs font-body font-semibold text-red-600 hover:text-red-800 border border-red-200 hover:border-red-400 bg-red-50/50 hover:bg-red-50 rounded px-2.5 py-1 transition-all self-start sm:self-auto flex items-center gap-1"
+                          >
+                            {cancellingId === order.id && <Loader2 size={12} className="animate-spin" />}
+                            Cancel Order
+                          </button>
+                        )}
+                      </div>
                     </div>
-                    <div className="text-left sm:text-right">
-                      <p className="font-display font-normal text-lg text-brand-primary flex items-center sm:justify-end">
-                        <IndianRupee size={16} /> {order.amount}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

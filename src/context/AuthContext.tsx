@@ -1,9 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
-import { doc, getDoc, setDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -12,6 +12,7 @@ interface UserProfile {
   email: string;
   phone: string;
   address: string;
+  city?: string;
   state: string;
   pincode: string;
 }
@@ -21,6 +22,7 @@ export type LoginIntent = "CHECKOUT" | "PROFILE" | "NONE";
 export interface CheckoutData {
   amount: number;
   items: string;
+  quantity?: number;
   donorName?: string;
   donorMessage?: string;
 }
@@ -54,14 +56,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        const docRef = doc(db, "users", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setProfile(docSnap.data() as UserProfile);
-        } else {
-          const emptyProfile = { name: currentUser.displayName || "", email: currentUser.email || "", phone: currentUser.phoneNumber || "", address: "", state: "", pincode: "" };
-          await setDoc(docRef, emptyProfile);
-          setProfile(emptyProfile);
+        try {
+          const { data, error } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", currentUser.uid)
+            .maybeSingle();
+
+          if (data) {
+            setProfile(data as UserProfile);
+          } else {
+            const emptyProfile = {
+              id: currentUser.uid,
+              name: currentUser.displayName || "",
+              email: currentUser.email || "",
+              phone: currentUser.phoneNumber || "",
+              address: "",
+              city: "",
+              state: "",
+              pincode: "",
+            };
+            await supabase.from("profiles").upsert(emptyProfile);
+            setProfile(emptyProfile);
+          }
+        } catch (err) {
+          console.error("Error loading profile from Supabase:", err);
         }
       } else {
         setProfile(null);
@@ -119,41 +138,127 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         handler: async function (response: any) {
           try {
             const currentUser = auth.currentUser;
-            if (currentUser) {
-              await addDoc(collection(db, "users", currentUser.uid, "orders"), {
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
-                amount: data.amount,
-                items: data.items,
-                donor_name: data.donorName || "",
-                donor_message: data.donorMessage || "",
-                status: "Processing",
-                date: serverTimestamp(),
-              });
-              
-              // Trigger Shiprocket Order Creation
-              try {
-                fetch("/api/shiprocket", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    orderId: response.razorpay_order_id,
-                    amount: data.amount,
-                    items: data.items,
-                    profile: currentProfile,
-                  })
-                }).catch(e => console.error("Shiprocket API call failed:", e));
-              } catch (e) {
-                console.error("Failed to initiate Shiprocket:", e);
-              }
+            const customerDetails = {
+              name: currentProfile?.name || currentUser?.displayName || data.donorName || "Customer",
+              email: currentProfile?.email || currentUser?.email || "",
+              phone: currentProfile?.phone || currentUser?.phoneNumber || "",
+              address: currentProfile?.address || "",
+              city: currentProfile?.city || "",
+              state: currentProfile?.state || "",
+              pincode: currentProfile?.pincode || "",
+            };
+
+            const isDonation = Boolean(data.donorName || data.items?.toLowerCase().includes("donation"));
+
+            const orderRecord = {
+              id: response.razorpay_order_id,
+              order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              amount: data.amount,
+              items: data.items,
+              quantity: data.quantity || 1,
+              type: isDonation ? "donation" : "order",
+              donor_name: data.donorName || "",
+              donor_message: data.donorMessage || "",
+              customer: customerDetails,
+              status: "Processing",
+              payment_status: "Paid",
+              order_status: "Processing",
+              shiprocket: {
+                status: isDonation ? "N/A (Donation)" : "Pending",
+                shipment_id: null,
+                order_id: null,
+                awb_code: null,
+                courier_name: null,
+                error: null,
+                updated_at: new Date().toISOString(),
+              },
+              user_id: currentUser ? currentUser.uid : "guest",
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            };
+
+            // 1. Save to Supabase "orders" table
+            const { error: saveError } = await supabase.from("orders").upsert(orderRecord);
+            if (saveError) {
+              console.warn("Supabase orders upsert notice:", saveError.message);
             }
+
+            // 2. Trigger Shiprocket for physical store orders
+            if (!isDonation) {
+              fetch("/api/shiprocket", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  orderId: response.razorpay_order_id,
+                  amount: data.amount,
+                  items: data.items,
+                  quantity: data.quantity || 1,
+                  profile: customerDetails,
+                }),
+              })
+                .then(async (srRes) => {
+                  const srData = await srRes.json().catch(() => ({}));
+                  if (srRes.ok && srData.success) {
+                    await supabase
+                      .from("orders")
+                      .update({
+                        shiprocket: {
+                          status: "Created",
+                          shipment_id: srData.shipment_id || null,
+                          order_id: srData.order_id || null,
+                          awb_code: srData.awb_code || null,
+                          courier_name: srData.courier_name || null,
+                          error: null,
+                          updated_at: new Date().toISOString(),
+                        },
+                        updated_at: new Date().toISOString(),
+                      })
+                      .eq("id", response.razorpay_order_id);
+                  } else {
+                    await supabase
+                      .from("orders")
+                      .update({
+                        shiprocket: {
+                          status: "Failed",
+                          shipment_id: null,
+                          order_id: null,
+                          awb_code: null,
+                          courier_name: null,
+                          error: srData.error || srData.details?.message || "Failed to push to Shiprocket",
+                          updated_at: new Date().toISOString(),
+                        },
+                        updated_at: new Date().toISOString(),
+                      })
+                      .eq("id", response.razorpay_order_id);
+                  }
+                })
+                .catch(async (err) => {
+                  console.error("Shiprocket API call failed:", err);
+                  await supabase
+                    .from("orders")
+                    .update({
+                      shiprocket: {
+                        status: "Failed",
+                        error: err.message || "Network error calling Shiprocket",
+                        updated_at: new Date().toISOString(),
+                      },
+                      updated_at: new Date().toISOString(),
+                    })
+                    .eq("id", response.razorpay_order_id);
+                });
+            }
+
             toast.success("Payment Successful!");
             closeLoginModal();
             router.push("/receipt?orderId=" + response.razorpay_order_id + "&amount=" + data.amount);
           } catch (e) {
             console.error("Error saving order:", e);
-            toast.error("Payment succeeded but order tracking failed.");
+            toast.error("Payment succeeded! Preparing receipt...");
+            closeLoginModal();
+            router.push("/receipt?orderId=" + response.razorpay_order_id + "&amount=" + data.amount);
           }
         },
         prefill: {
